@@ -48,6 +48,12 @@ fn get_from_secret<TPublic: Public>(seed: &str) -> <TPublic::Pair as Pair>::Publ
 // }
 
 
+const ALITH: &str = "0x6B7CD45dfc550F12b4EdAFDFbBC68b53faAE6Fe2";
+const BALTATHAR: &str = "0x18119Bb0f49ee709104CA2804B297B08d5d0EDEc";
+const CHARLETH: &str = "0x71B18c74b51E2195c92C169504f7FAFA71308A9a";
+const DOROTHY: &str = "0xC03cfc225Ad4b42F96f612BA38bD4d9cBD4a419a";
+
+
 pub fn public_config() -> Result<ChainSpec, String> {
 	let wasm_binary = WASM_BINARY.ok_or_else(|| "Development wasm not available".to_string())?;
 
@@ -60,15 +66,20 @@ pub fn public_config() -> Result<ChainSpec, String> {
 				wasm_binary,
 				// Initial PoA authorities
 				vec![
+
+					// AccountId::from(hex!("5GX8EXNZNccSiDZtXy6R8DbqpYwZkhGPefEjfMdT4bSrHPuE")), 
 					(array_bytes::hex_n_into_unchecked(ALITH),
 					 get_from_secret::<AuraId>("//Alice"),
 					 get_from_secret::<GrandpaId>("//Alice")),
 					(array_bytes::hex_n_into_unchecked(BALTATHAR),
 					 get_from_secret::<AuraId>("//Bob"),
 					 get_from_secret::<GrandpaId>("//Bob")),
+					//  (array_bytes::hex_n_into_unchecked(BALTATHAR),
+					//  get_from_secret::<AuraId>("//Bob"),
+					//  get_from_secret::<GrandpaId>("//Bob")),
 				],
 				// Sudo account
-				AccountId::from(hex!("55D5E776997198679A8774507CaA4b0F7841767e")),
+				AccountId::from(hex!("A81082ea6fD0A99d56425daC010A5fC48b6044Cd")),
 
 				// Pre-funded accounts
 				vec![
@@ -91,6 +102,7 @@ pub fn public_config() -> Result<ChainSpec, String> {
 
 
 
+
 fn session_keys(
 	aura: AuraId,
 	grandpa: GrandpaId,
@@ -105,11 +117,6 @@ pub fn chainspec_properties() -> Properties {
 	properties
 }
 
-
-const ALITH: &str = "0x6B7CD45dfc550F12b4EdAFDFbBC68b53faAE6Fe2";
-const BALTATHAR: &str = "0x18119Bb0f49ee709104CA2804B297B08d5d0EDEc";
-const CHARLETH: &str = "0x71B18c74b51E2195c92C169504f7FAFA71308A9a";
-const DOROTHY: &str = "0xC03cfc225Ad4b42F96f612BA38bD4d9cBD4a419a";
 // const ETHAN: &str = "0xFf64d3F6efE2317EE2807d223a0Bdc4c0c49dfDB";
 
 /// Helper function to get an `AccountId` from an ECDSA Key Pair.
@@ -147,16 +154,12 @@ pub fn development_config() -> Result<ChainSpec, String> {
 				// get_account_id_from_secret::<ed25519::Public>("//Alice"),
 				// Pre-funded accounts
 				vec![
-					AccountId::from(hex!("6B7CD45dfc550F12b4EdAFDFbBC68b53faAE6Fe2")),
-					AccountId::from(hex!("18119Bb0f49ee709104CA2804B297B08d5d0EDEc")),
-					AccountId::from(hex!("71B18c74b51E2195c92C169504f7FAFA71308A9a")),
-					// get_account_id_from_seed::<ecdsa::Public>("Bob"),
-					// get_account_id_from_seed::<ecdsa::Public>("Alice//stash"),
-					// get_account_id_from_seed::<ecdsa::Public>("Bob//stash"),
-					// get_account_id_from_secret::<ed25519::Public>("//Alice"),
-					// get_account_id_from_secret::<ed25519::Public>("//Bob"),
-					// get_account_id_from_secret::<sr25519::Public>("//Alice"),
-					// get_account_id_from_secret::<sr25519::Public>("//Bob"),
+					// AccountId::from(hex!("6B7CD45dfc550F12b4EdAFDFbBC68b53faAE6Fe2")),
+					// AccountId::from(hex!("18119Bb0f49ee709104CA2804B297B08d5d0EDEc")),
+					// AccountId::from(hex!("71B18c74b51E2195c92C169504f7FAFA71308A9a")),
+					array_bytes::hex_n_into_unchecked(ALITH),
+					array_bytes::hex_n_into_unchecked(BALTATHAR),
+
 				],
 				true,
 			)
@@ -197,7 +200,7 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 					 get_from_secret::<GrandpaId>("//Bob")),
 				],
 				// Sudo account
-				AccountId::from(hex!("6B7CD45dfc550F12b4EdAFDFbBC68b53faAE6Fe2")),
+				AccountId::from(hex!("A81082ea6fD0A99d56425daC010A5fC48b6044Cd")),
 				// Pre-funded accounts
 				vec![
 					array_bytes::hex_n_into_unchecked(ALITH),
